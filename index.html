@@ -1,0 +1,72 @@
+<HTML>
+<TITLE>Javascript Katas</TITLE>
+<BODY>
+
+<H1>Coding Javascript Katas</H1>
+<HR/>
+<DIV id='FizzBuzz'>
+  <DIV class='title'>FizzBuzz</DIV><BR/>
+  <SPAN id='fizzResult'>0</SPAN><BR/>
+  <INPUT id='fizzNext' type='button' value='next' onClick='
+          var result = document.getElementById("fizzResult");
+          result.innerHTML = FizzBuzz.instance.next();' />
+  <SCRIPT src="./FizzBuzz.js"></SCRIPT>
+</DIV>
+<HR/>
+<DIV id='HarryPotter'>
+  <DIV class='title'>HarryPotter</DIV><BR/>
+  <DIV id='potterInput'>
+     <INPUT id='book1Quantity' type='text' value='0' class='harryInput'/>
+     <INPUT id='book2Quantity' type='text' value='0' class='harryInput'/>
+     <INPUT id='book3Quantity' type='text' value='0' class='harryInput'/>
+     <INPUT id='book4Quantity' type='text' value='0' class='harryInput'/>
+     <INPUT id='book5Quantity' type='text' value='0' class='harryInput'/>
+     <BR/>
+     <INPUT id='potterBuy' type='button' value='buy' onClick='
+          var result = document.getElementById("potterResult");
+          var bookQuantity = [];
+          for(var i=0; i<5; i++) {
+              bookQuantity[i] = Number(document.getElementById("book"+(i+1)+"Quantity").value);
+          }
+          result.innerHTML = (new HarryPotter()).setBasket(bookQuantity).buy()'/>
+  </DIV>
+  <BR/>
+  <SPAN id='potterResult'>0</SPAN> CHF<BR/>
+  <SCRIPT src="./HarryPotter.js"></SCRIPT>
+</DIV>
+<HR/>
+<DIV id='RomanNumberConverter'>
+  <DIV class='title'>RomanNumberConverter</DIV><BR/>
+  <DIV id='RomanNumberConverterInput'>
+  </DIV>
+</DIV>
+<HR/>
+<DIV id='RomanNumberCalculator'>
+  <DIV class='title'>RomanNumberCalculator</DIV><BR/>
+  <DIV id='RomanNumberCalculatorInput'>
+  </DIV>
+</DIV>
+<HR/>
+<DIV id='GameOfLife'>
+  <DIV class='title'>GameOfLife</DIV><BR/>
+  <DIV id='GameOfLifeInput'>
+  </DIV>
+</DIV>
+<HR/>
+<DIV id='PokerHands'>
+  <DIV id='title'>PokerHands</DIV><BR/>
+  <DIV id='PokerHandsInput'>
+  </DIV>
+</DIV>
+<HR/>
+<DIV id='Minesweeper'>
+  <DIV id='title'>Minesweeper</DIV><BR/>
+  </DIV>
+</DIV>
+<HR/>
+<DIV id='Pacman'>
+  <DIV id='title'>Pacman</DIV><BR/>
+</DIV>
+<HR/>
+</BODY>
+</HTML>
