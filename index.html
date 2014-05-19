@@ -38,13 +38,32 @@
 <DIV id='RomanNumberConverter'>
   <DIV class='title'>RomanNumberConverter</DIV><BR/>
   <DIV id='RomanNumberConverterInput'>
+    <INPUT id='arabicValueToConvert' type='text' value='1' class='converterInput'/>
+    <INPUT id='convert' type='button' value='convert' onClick='
+       var result = document.getElementById("RomanNumberConverterResult");
+       var value = document.getElementById("arabicValueToConvert").value;
+       result.innerHTML = RomanConverter.instance.convert(value);'/>
   </DIV>
+  <BR/>
+  <SPAN id='RomanNumberConverterResult'></SPAN><BR/>
+  <SCRIPT src="./RomanConverter.js"></SCRIPT>
 </DIV>
 <HR/>
 <DIV id='RomanNumberCalculator'>
   <DIV class='title'>RomanNumberCalculator</DIV><BR/>
   <DIV id='RomanNumberCalculatorInput'>
-  </DIV>
+     <INPUT id='firstValueToAdd' type='text' value='I' class='converterInput'/>
+     +
+     <INPUT id='secondValueToAdd' type='text' value='I' class='converterInput'/>
+     <INPUT id='add' type='button' value='add' onClick='
+        var result = document.getElementById("RomanNumberCalculatorResult");
+        var firstValue = document.getElementById("firstValueToAdd").value;
+        var secondValue = document.getElementById("secondValueToAdd").value;
+        result.innerHTML = RomanCalculator.instance.add(firstValue, secondValue);'/>
+   </DIV>
+   <BR/>
+   <SPAN id='RomanNumberCalculatorResult'></SPAN><BR/>
+   <SCRIPT src="./RomanCalculator.js"></SCRIPT>
 </DIV>
 <HR/>
 <DIV id='GameOfLife'>
