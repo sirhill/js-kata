@@ -1,4 +1,8 @@
 describe("RomanNumberCalculator add", function() {
+   it("should return II for I+I", function() {
+       expect(RomanCalculator.instance.add("I", "I")).toBe("II");
+   });
+
    it("should return XI for X+I", function() {
        expect(RomanCalculator.instance.add("X", "I")).toBe("XI");
    });
@@ -19,11 +23,51 @@ describe("RomanNumberCalculator add", function() {
        expect(RomanCalculator.instance.add("D", "D")).toBe("M");
    });
 
+   it("should return XXII for XX+II", function() {
+       expect(RomanCalculator.instance.add("XX","II")).toBe("XXII");
+   });
+
+   it("should return XXII for XXI+I", function() {
+       expect(RomanCalculator.instance.add("XXI", "I")).toBe("XXII");
+   });
+
+   it("should return XXII for I+XXI", function() {
+       expect(RomanCalculator.instance.add("I","XXI")).toBe("XXII");
+   });
+
+   it("should return XXII for X+XII", function() {
+       expect(RomanCalculator.instance.add("X","XII")).toBe("XXII");
+   });
+
    it("should return XXII for XI+XI", function() {
        expect(RomanCalculator.instance.add("XI", "XI")).toBe("XXII");
    });
 
+   it("should return V for II+III", function() {
+       expect(RomanCalculator.instance.add("II", "III")).toBe("V");
+   });
+
+   it("should return X for VII+III", function() {
+       expect(RomanCalculator.instance.add("VII","III")).toBe("VII");
+   });
+
+   it("should return X for VIII+II", function() {
+       expect(RomanCalculator.instance.add("VIII","II")).toBe("X");
+   });
+
    it("should return V for IV+I", function() {
        expect(RomanCalculator.instance.add("IV", "I")).toBe("V");
+   });
+
+   it("should return VI for IV+II", function() {
+       expect(RomanCalculator.instance.add("IV", "II")).toBe("VI");
+   });
+
+   it("should return XI for IV+VI", function() {
+       expect(RomanCalculator.instance.add("IV", "VI")).toBe("XI");
+   });
+
+   it("should return IX for V+IV", function() {
+       expect(RomanCalculator.instance.add("V", "IV")).toBe("IX");
    });
 });

@@ -9,36 +9,61 @@ function RomanCalculator() {
             case 50: return "C";
             case 500: return "M";
 
-            default: return "";
+            default: return undefined;
         }
     }
 
-    this.add = function(firstRoman, secondRoman) {
+    var merge = function(firstRoman, secondRoman) {
         var result = "";
 
-        var firstId = firstRoman.length;
-        var secondId = secondRoman.length;
+        var firstId = firstRoman.length-1;
+        var secondId = secondRoman.length-1;
 
-        while(firstId > 0 && secondId > 0) {
-          var firstRomanLetter = firstRoman[--firstId];
-          var secondRomanLetter = secondRoman[--secondId];
+        while(firstId >= 0 && secondId >= 0) {
+          var firstRomanLetter = firstRoman[firstId];
+          var secondRomanLetter = secondRoman[secondId];
           var firstRomanLetterValue = letters[firstRomanLetter];
           var secondRomanLetterValue = letters[secondRomanLetter];
 
-          console.log(firstRomanLetter + " + " + secondRomanLetter );
           if (firstRomanLetterValue >= secondRomanLetterValue) {
               if ( firstRomanLetterValue == secondRomanLetterValue ) {
-                  result += nextRomanLetter(firstRomanLetterValue);
+                  var nextRoman = nextRomanLetter(firstRomanLetterValue);
+                  if(nextRoman) {
+                     result = nextRoman + result;
+                  }
+                  else {
+                     result = firstRomanLetter + secondRomanLetter + result;
+                  }
+                  firstId--;
+                  secondId--;
               }
               else {
-                  result += firstRomanLetter + secondRomanLetter;
+                  result = secondRomanLetter + result;
+                  secondId--;
               }
           }
           else {
-              result += secondRomanLetter + firstRomanLetter;
+              result = firstRomanLetter + result;
+              firstId--;
           }
         }
+
+        if(firstId >= 0) {
+           result = firstRoman.substring(0,firstId+1) + result;
+        }
+        if(secondId >= 0) {
+           result = secondRoman.substring(0,secondId+1) + result;
+        }
+
         return result;
+    }
+
+    var regroup = function(romanNumber) {
+        return romanNumber;
+    }
+
+    this.add = function(firstRoman, secondRoman) {
+        return regroup(merge(firstRoman, secondRoman));
     }
 }
 
