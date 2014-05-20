@@ -63,8 +63,8 @@ describe("RomanNumberCalculator add", function() {
        expect(RomanCalculator.instance.add("IV", "II")).toBe("VI");
    });
 
-   it("should return XI for IV+VI", function() {
-       expect(RomanCalculator.instance.add("IV", "VI")).toBe("XI");
+   it("should return X for IV+VI", function() {
+       expect(RomanCalculator.instance.add("IV", "VI")).toBe("X");
    });
 
    it("should return IX for V+IV", function() {
