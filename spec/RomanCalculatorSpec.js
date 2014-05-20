@@ -48,7 +48,7 @@ describe("RomanNumberCalculator add", function() {
    });
 
    it("should return X for VII+III", function() {
-       expect(RomanCalculator.instance.add("VII","III")).toBe("VII");
+       expect(RomanCalculator.instance.add("VII","III")).toBe("X");
    });
 
    it("should return X for VIII+II", function() {

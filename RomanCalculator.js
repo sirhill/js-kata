@@ -1,20 +1,21 @@
 
 function RomanCalculator() {
 
-    var letters = { "I": 1, "V": 5, "X": 10, "L": 50, "C": 100, "D": 500, "M": 1000 };
+    var letters = { "I": { "value": 1, "next": 5 },
+                    "V": { "value": 5, "next": 2 },
+                    "X": { "value": 10, "next": 5 },
+                    "L": { "value": 50, "next": 2 },
+                    "C": { "value": 100, "next": 5 },
+                    "D": { "value": 500, "next": 2 },
+                    "M": { "value": 1000, "next": 5 } };
     
-    var nextRomanLetter = function(letterValue) {
-        switch(letterValue) {
-            case 5: return "X";
-            case 50: return "C";
-            case 500: return "M";
-
-            default: return undefined;
-        }
-    }
-
     var merge = function(firstRoman, secondRoman) {
         var result = "";
+
+	var romanNumberMap = {};
+        for(var letter in letters) {
+            romanNumberMap[letter] = 0;
+        }
 
         var firstId = firstRoman.length-1;
         var secondId = secondRoman.length-1;
@@ -22,44 +23,68 @@ function RomanCalculator() {
         while(firstId >= 0 && secondId >= 0) {
           var firstRomanLetter = firstRoman[firstId];
           var secondRomanLetter = secondRoman[secondId];
-          var firstRomanLetterValue = letters[firstRomanLetter];
-          var secondRomanLetterValue = letters[secondRomanLetter];
+          var firstRomanLetterValue = letters[firstRomanLetter].value;
+          var secondRomanLetterValue = letters[secondRomanLetter].value;
+
+          if(!firstRomanLetterValue) {
+             throw "Invalid letter "+firstRomanLetterValue;
+          }
+          if(!secondRomanLetterValue) {
+             throw "Invalid letter "+secondRomanLetterValue;
+          }
 
           if (firstRomanLetterValue >= secondRomanLetterValue) {
               if ( firstRomanLetterValue == secondRomanLetterValue ) {
-                  var nextRoman = nextRomanLetter(firstRomanLetterValue);
-                  if(nextRoman) {
-                     result = nextRoman + result;
-                  }
-                  else {
-                     result = firstRomanLetter + secondRomanLetter + result;
-                  }
+                  romanNumberMap[secondRomanLetter] += 1;
                   firstId--;
-                  secondId--;
               }
-              else {
-                  result = secondRomanLetter + result;
-                  secondId--;
-              }
+              romanNumberMap[secondRomanLetter] += 1;
+              secondId--;
           }
           else {
-              result = firstRomanLetter + result;
+              romanNumberMap[firstRomanLetter] += 1;
               firstId--;
           }
         }
 
+        var mapString = function(id, string) {
+           for(var i=id; i >= 0; i--) {
+	      var letter = string[i];
+              romanNumberMap[letter] += 1;
+           }
+        }
         if(firstId >= 0) {
-           result = firstRoman.substring(0,firstId+1) + result;
+           mapString(firstId, firstRoman);
         }
         if(secondId >= 0) {
-           result = secondRoman.substring(0,secondId+1) + result;
+           mapString(secondId, secondRoman);
         }
 
-        return result;
+        return romanNumberMap;
     }
 
-    var regroup = function(romanNumber) {
-        return romanNumber;
+    var regroup = function(romanNumberMap) {
+        result = "";
+        var report=false; 
+        for(var letter in letters) {
+           var value = romanNumberMap[letter];
+           var next = letters[letter].next;
+          
+           if(report) {
+              report = false;
+              value++;
+           }
+
+           if(value >= next) {
+              value -= next;
+              report = true;
+           }
+
+           for(var i=0; i< value; i++) {
+             result = letter + result;
+           }
+        }
+        return result;
     }
 
     this.add = function(firstRoman, secondRoman) {
