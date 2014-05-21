@@ -1,13 +1,13 @@
 
 function RomanCalculator() {
 
-    var letters = { "I": { "value": 1, "next": 5 },
-                    "V": { "value": 5, "next": 2 },
-                    "X": { "value": 10, "next": 5 },
-                    "L": { "value": 50, "next": 2 },
-                    "C": { "value": 100, "next": 5 },
-                    "D": { "value": 500, "next": 2 },
-                    "M": { "value": 1000, "next": 5 } };
+    var letters = { "I": { "next": "V", "regroupAt": 5 },
+                    "V": { "next": "X", "regroupAt": 2 },
+                    "X": { "next": "L", "regroupAt": 5 },
+                    "L": { "next": "C", "regroupAt": 2 },
+                    "C": { "next": "D", "regroupAt": 5 },
+                    "D": { "next": "M", "regroupAt": 2 },
+                    "M": { "regroupAt": 5 } };
     
     var merge = function(firstRoman, secondRoman) {
         var result = "";
@@ -17,57 +17,42 @@ function RomanCalculator() {
             romanNumberMap[letter] = 0;
         }
 
-        var firstId = firstRoman.length-1;
-        var secondId = secondRoman.length-1;
+        var mergeRoman = function(roman) {
+           for(var i=0; i<roman.length ; i++) {
+               var letter = roman[i];
+               var nextLetter = roman[(i==roman.length-1)?roman.length-1:i+1];
+               if(letters[letter] == undefined) {
+		   throw new Error("Invalid letter "+letter);
+               }
 
-        while(firstId >= 0 && secondId >= 0) {
-          var firstRomanLetter = firstRoman[firstId];
-          var secondRomanLetter = secondRoman[secondId];
-          var firstRomanLetterValue = letters[firstRomanLetter].value;
-          var secondRomanLetterValue = letters[secondRomanLetter].value;
+               var next = letters[letter].next;
+               if(nextLetter == next) {
+                   romanNumberMap[letter] += 4;
+                   i++;
+                   continue;
+               }
 
-          if(!firstRomanLetterValue) {
-             throw "Invalid letter "+firstRomanLetterValue;
-          }
-          if(!secondRomanLetterValue) {
-             throw "Invalid letter "+secondRomanLetterValue;
-          }
-
-          if (firstRomanLetterValue >= secondRomanLetterValue) {
-              if ( firstRomanLetterValue == secondRomanLetterValue ) {
-                  romanNumberMap[secondRomanLetter] += 1;
-                  firstId--;
-              }
-              romanNumberMap[secondRomanLetter] += 1;
-              secondId--;
-          }
-          else {
-              romanNumberMap[firstRomanLetter] += 1;
-              firstId--;
-          }
-        }
-
-        var mapString = function(id, string) {
-           for(var i=id; i >= 0; i--) {
-	      var letter = string[i];
-              romanNumberMap[letter] += 1;
+               if(next && nextLetter == letters[next].next) {
+                   romanNumberMap[letter] += 4;
+                   romanNumberMap[next] += 1;
+                   i += 2;
+                   continue;
+               }
+               romanNumberMap[letter] += 1;
            }
-        }
-        if(firstId >= 0) {
-           mapString(firstId, firstRoman);
-        }
-        if(secondId >= 0) {
-           mapString(secondId, secondRoman);
-        }
+        };
 
+        mergeRoman(firstRoman);
+        mergeRoman(secondRoman);
         return romanNumberMap;
     }
 
     var regroup = function(romanNumberMap) {
         result = "";
-        var report=false; 
+        var report=false;
         for(var letter in letters) {
            var value = romanNumberMap[letter];
+           var regroupAt = letters[letter].regroupAt;
            var next = letters[letter].next;
           
            if(report) {
@@ -75,13 +60,24 @@ function RomanCalculator() {
               value++;
            }
 
-           if(value >= next) {
-              value -= next;
+           if(regroupAt == 5 && next && letters[next] && letters[next].next && value == 4 && romanNumberMap[next] > 0) {
+              result = letter + letters[next].next + result;
+              romanNumberMap[next] -= 1;
+              continue;
+           }
+
+           if(regroupAt == 5 && next && value == 4 ) {
+              result = letter + next + result;
+              continue; 
+           }
+              
+           if(value >= regroupAt) {
+              value -= regroupAt;
               report = true;
            }
 
            for(var i=0; i< value; i++) {
-             result = letter + result;
+              result = letter + result;
            }
         }
         return result;
