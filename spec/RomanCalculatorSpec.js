@@ -86,4 +86,16 @@ describe("RomanNumberCalculator add", function() {
    it("should return XIII for IX+IV", function() {
        expect(RomanCalculator.instance.add("IX","IV")).toBe("XIII");
    });
+
+   it("should return C for XCIX+I", function() {
+       expect(RomanCalculator.instance.add("XCIX","I")).toBe("C");
+   });
+
+   it("should return D for CDXCIX+I", function() {
+       expect(RomanCalculator.instance.add("CDXCIX","I")).toBe("D");
+   });
+
+   it("should return M for CMXCIX+I", function() {
+       expect(RomanCalculator.instance.add("CMXCIX","I")).toBe("M");
+   });
 });

@@ -20,7 +20,7 @@ function RomanCalculator() {
         var mergeRoman = function(roman) {
            for(var i=0; i<roman.length ; i++) {
                var letter = roman[i];
-               var nextLetter = roman[(i==roman.length-1)?roman.length-1:i+1];
+               var nextLetter = roman[(i==roman.length-1)?i:i+1];
                if(letters[letter] == undefined) {
 		   throw new Error("Invalid letter "+letter);
                }
@@ -34,8 +34,8 @@ function RomanCalculator() {
 
                if(next && nextLetter == letters[next].next) {
                    romanNumberMap[letter] += 4;
-                   romanNumberMap[next] += 1;
-                   i += 2;
+		   romanNumberMap[next] += 1;
+                   i++;
                    continue;
                }
                romanNumberMap[letter] += 1;
@@ -84,7 +84,7 @@ function RomanCalculator() {
     }
 
     this.add = function(firstRoman, secondRoman) {
-        return regroup(merge(firstRoman, secondRoman));
+	  return regroup(merge(firstRoman, secondRoman));
     }
 }
 
