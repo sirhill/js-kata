@@ -67,8 +67,18 @@
 </DIV>
 <HR/>
 <DIV id='GameOfLife'>
-  <DIV class='title'>GameOfLife</DIV><BR/>
+  <DIV class='title'>GameOfLife</DIV>
+  <DIV id='GameOfLifeBoard'>
+    <TABLE id="boardOfLife"></TABLE>
+  </DIV>
+  <BR/>
   <DIV id='GameOfLifeInput'>
+     <INPUT id="newGeneration" type="button" value="new" onClick='
+        var result = document.getElementById("boardOfLife");
+        GameOfLife.init(result);
+     '/>
+     <INPUT id="nextGeneration" type="button" value="next"/>
+     <SCRIPT src="./GameOfLife.js"></SCRIPT>
   </DIV>
 </DIV>
 <HR/>
@@ -79,7 +89,7 @@
 </DIV>
 <HR/>
 <DIV id='Minesweeper'>
-  <DIV id='title'>Minesweeper</DIV><BR/>
+  <DIV id='title'>MineSweeper</DIV><BR/>
   </DIV>
 </DIV>
 <HR/>
