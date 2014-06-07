@@ -45,7 +45,7 @@ function HarryPotter() {
 
    this.buyForOneDiscount = function(nextBuyGroupVolume) {
      var bestDiscount = discount[nextBuyGroupVolume - 1];
-     console.log("using discount "+bestDiscount+"%");
+     //console.log("using discount "+bestDiscount+"%");
      this.sum += (unitPrice * nextBuyGroupVolume) * (1 - bestDiscount / 100);
    }
 
