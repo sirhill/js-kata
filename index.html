@@ -75,6 +75,7 @@
   <DIV id='GameOfLifeInput'>
      <INPUT id="newGeneration" type="button" value="new" onClick='
         var result = document.getElementById("boardOfLife");
+        GameOfLife.instance.initBoard(initBoard);
         GameOfLife.instance.display(result);
      '/>
      <INPUT id="nextGeneration" type="button" value="next" onClick='

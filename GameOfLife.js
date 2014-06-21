@@ -117,6 +117,8 @@ GameOfLife.DEAD = "&nbsp;";
 GameOfLife.LIVING = "o";
 GameOfLife.BORDER = "x";
 
+var initBoard = [ [ 4, 5 ], [ 5, 4 ], [ 5, 5 ], [ 5, 6 ], [ 6, 5 ] ];
+
 GameOfLife.instance = new GameOfLife(GameOfLife.SIZE);
-GameOfLife.instance.initBoard( [ [ 4, 5 ], [ 5, 4 ], [ 5, 5 ], [ 5, 6 ], [ 6, 5 ] ] );
+GameOfLife.instance.initBoard( initBoard );
 
